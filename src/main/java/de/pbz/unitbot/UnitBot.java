@@ -29,6 +29,11 @@ public class UnitBot {
     }
 
     public static void main(String[] args) {
+        if (args.length != 1) {
+            LOG.error("Wrong parameters");
+            return;
+        }
+
         LOG.info("Starting Unit Bot...");
 
         final DiscordClient client = DiscordClientBuilder.create(args[0]).build();
