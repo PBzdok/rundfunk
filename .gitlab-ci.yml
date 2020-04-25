@@ -1,0 +1,38 @@
+image: java:11-jdk
+
+stages:
+  - build
+  - test
+  - build_image
+before_script:
+  - export GRADLE_USER_HOME=`pwd`/.gradle
+  - docker info
+
+cache:
+  paths:
+    - .gradle/wrapper
+    - .gradle/caches
+
+build:
+  stage: build
+  script:
+    - ./gradlew assemble
+    -
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 1 week
+  only:
+    - master
+
+test:
+  stage: test
+  script:
+    - ./gradlew check
+
+build_image:
+  script:
+    - docker build -t my-docker-image .
+
+after_script:
+  - echo "End CI"
