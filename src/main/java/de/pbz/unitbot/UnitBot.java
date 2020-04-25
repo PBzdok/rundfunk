@@ -1,5 +1,7 @@
 package de.pbz.unitbot;
 
+import de.pbz.unitbot.commands.CatCommand;
+import de.pbz.unitbot.commands.HelpCommand;
 import de.pbz.unitbot.commands.MCCommand;
 import de.pbz.unitbot.commands.TTTCommand;
 import discord4j.core.DiscordClient;
@@ -20,14 +22,16 @@ public class UnitBot {
     private static final Map<String, Command> commands = new HashMap<>();
 
     static {
+        commands.put("help", new HelpCommand());
         commands.put("ttt", new TTTCommand());
         commands.put("mc", new MCCommand());
+        commands.put("cat", new CatCommand());
     }
 
     public static void main(String[] args) {
         LOG.info("Starting Unit Bot...");
 
-        final DiscordClient client = DiscordClientBuilder.create("NjM1MjEwMjM3NDc2OTk1MDcy.XqQfCw.JUMPFqHeGDSnc9WqfhzjxbetPZU").build();
+        final DiscordClient client = DiscordClientBuilder.create(args[0]).build();
 
         client.getEventDispatcher().on(ReadyEvent.class)
                 .subscribe(ready -> LOG.info("Logged in as " + ready.getSelf().getUsername()));
