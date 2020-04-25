@@ -7,10 +7,6 @@ RUN gradle build --no-daemon
 
 FROM openjdk:11-jre-slim
 
-ADD ./build/libs/*.jar app.jar
-
 RUN mkdir /app
-
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/unitbot.jar
-
 ENTRYPOINT ["java", "-jar","/app/unitbot.jar"]
