@@ -12,7 +12,8 @@ public class HelpCommand implements Command {
 
     private static final String HELP = "`!cat` -> Just cats...\n" +
             "`!ttt` -> Get the G-Unit TTT server address.\n" +
-            "`!mc` -> Get the G-Unit MC server address.";
+            "`!mc` -> Get the G-Unit MC server address.\n" +
+            "`!rsp` -> Play rock, scissors and paper.";
 
     @Override
     public Mono<Void> execute(MessageCreateEvent event) {
