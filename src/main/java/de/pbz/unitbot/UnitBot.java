@@ -1,9 +1,6 @@
 package de.pbz.unitbot;
 
-import de.pbz.unitbot.commands.CatCommand;
-import de.pbz.unitbot.commands.HelpCommand;
-import de.pbz.unitbot.commands.MCCommand;
-import de.pbz.unitbot.commands.TTTCommand;
+import de.pbz.unitbot.commands.*;
 import discord4j.core.DiscordClient;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.event.domain.lifecycle.ReadyEvent;
@@ -26,6 +23,7 @@ public class UnitBot {
         commands.put("ttt", new TTTCommand());
         commands.put("mc", new MCCommand());
         commands.put("cat", new CatCommand());
+        commands.put("rsp", new RSPCommand());
     }
 
     public static void main(String[] args) {
