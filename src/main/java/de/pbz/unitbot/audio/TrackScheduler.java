@@ -34,4 +34,8 @@ public class TrackScheduler extends AudioEventAdapter {
             nextTrack();
         }
     }
+
+    public void clearQueue() {
+        this.queue.clear();
+    }
 }

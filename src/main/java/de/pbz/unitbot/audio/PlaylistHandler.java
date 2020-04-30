@@ -25,9 +25,8 @@ public class PlaylistHandler implements AudioLoadResultHandler {
     @Override
     public void playlistLoaded(AudioPlaylist playlist) {
         LOG.info("Queue playlist: " + playlist.getName());
-        playlist.getTracks().clear();
+        musicManager.getScheduler().clearQueue();
         playlist.getTracks().forEach(track -> musicManager.getScheduler().queue(track));
-        musicManager.getPlayer().playTrack(playlist.getTracks().get(0));
     }
 
     @Override
