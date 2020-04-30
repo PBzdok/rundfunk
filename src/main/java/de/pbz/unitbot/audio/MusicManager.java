@@ -5,7 +5,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import lombok.Getter;
 
 
-public class GuildMusicManager {
+public class MusicManager {
 
     @Getter
     private final AudioPlayer player;
@@ -14,7 +14,7 @@ public class GuildMusicManager {
     @Getter
     private final LavaPlayerAudioProvider provider;
 
-    public GuildMusicManager(AudioPlayerManager manager) {
+    public MusicManager(AudioPlayerManager manager) {
         player = manager.createPlayer();
         scheduler = new TrackScheduler(player);
         player.addListener(scheduler);

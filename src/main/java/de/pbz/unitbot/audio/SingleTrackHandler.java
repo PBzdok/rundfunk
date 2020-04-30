@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 public class SingleTrackHandler implements AudioLoadResultHandler {
     private static final Logger LOG = LoggerFactory.getLogger(SingleTrackHandler.class);
 
-    private final GuildMusicManager musicManager;
+    private final MusicManager musicManager;
 
-    public SingleTrackHandler(GuildMusicManager musicManager) {
+    public SingleTrackHandler(MusicManager musicManager) {
         this.musicManager = musicManager;
     }
 
@@ -29,11 +29,12 @@ public class SingleTrackHandler implements AudioLoadResultHandler {
 
     @Override
     public void noMatches() {
-        // LavaPlayer did not find any audio to extract
+        LOG.warn("Could not find source!");
     }
 
     @Override
     public void loadFailed(FriendlyException exception) {
-        // LavaPlayer could not parse an audio source for some reason
+        LOG.warn("Could not load track!");
+        musicManager.getScheduler().nextTrack();
     }
 }

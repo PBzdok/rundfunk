@@ -4,7 +4,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.track.playback.NonAllocatingAudioFrameBuffer;
-import de.pbz.unitbot.audio.GuildMusicManager;
+import de.pbz.unitbot.audio.MusicManager;
 import de.pbz.unitbot.commands.*;
 import discord4j.core.DiscordClient;
 import discord4j.core.DiscordClientBuilder;
@@ -58,7 +58,7 @@ public class UnitBot {
         final AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
         playerManager.getConfiguration().setFrameBufferFactory(NonAllocatingAudioFrameBuffer::new);
         AudioSourceManagers.registerRemoteSources(playerManager);
-        GuildMusicManager musicManager = new GuildMusicManager(playerManager);
+        MusicManager musicManager = new MusicManager(playerManager);
 
         commands.put("join", new JoinCommand(musicManager));
         commands.put("play", new PlayCommand(playerManager, musicManager));

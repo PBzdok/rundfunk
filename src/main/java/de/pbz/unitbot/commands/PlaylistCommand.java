@@ -2,7 +2,7 @@ package de.pbz.unitbot.commands;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import de.pbz.unitbot.Command;
-import de.pbz.unitbot.audio.GuildMusicManager;
+import de.pbz.unitbot.audio.MusicManager;
 import de.pbz.unitbot.audio.PlaylistHandler;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import org.slf4j.Logger;
@@ -15,9 +15,9 @@ public class PlaylistCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(PlaylistCommand.class);
 
     private final AudioPlayerManager playerManager;
-    private final GuildMusicManager musicManager;
+    private final MusicManager musicManager;
 
-    public PlaylistCommand(AudioPlayerManager playerManager, GuildMusicManager musicManager) {
+    public PlaylistCommand(AudioPlayerManager playerManager, MusicManager musicManager) {
         this.playerManager = playerManager;
         this.musicManager = musicManager;
     }

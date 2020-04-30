@@ -1,7 +1,7 @@
 package de.pbz.unitbot.commands;
 
 import de.pbz.unitbot.Command;
-import de.pbz.unitbot.audio.GuildMusicManager;
+import de.pbz.unitbot.audio.MusicManager;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.VoiceState;
 import discord4j.core.object.entity.Member;
@@ -12,9 +12,9 @@ import reactor.core.publisher.Mono;
 public class JoinCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(JoinCommand.class);
 
-    private final GuildMusicManager musicManager;
+    private final MusicManager musicManager;
 
-    public JoinCommand(GuildMusicManager musicManager) {
+    public JoinCommand(MusicManager musicManager) {
         this.musicManager = musicManager;
     }
 

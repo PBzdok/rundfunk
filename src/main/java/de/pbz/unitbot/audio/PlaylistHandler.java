@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 public class PlaylistHandler implements AudioLoadResultHandler {
     private static final Logger LOG = LoggerFactory.getLogger(PlaylistHandler.class);
 
-    private final GuildMusicManager musicManager;
+    private final MusicManager musicManager;
 
-    public PlaylistHandler(GuildMusicManager musicManager) {
+    public PlaylistHandler(MusicManager musicManager) {
         this.musicManager = musicManager;
     }
 
@@ -24,7 +24,8 @@ public class PlaylistHandler implements AudioLoadResultHandler {
 
     @Override
     public void playlistLoaded(AudioPlaylist playlist) {
-        LOG.info("Load playlist: " + playlist.getName());
+        LOG.info("Queue playlist: " + playlist.getName());
+        playlist.getTracks().clear();
         playlist.getTracks().forEach(track -> musicManager.getScheduler().queue(track));
     }
 
