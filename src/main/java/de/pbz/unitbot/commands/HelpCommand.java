@@ -14,6 +14,7 @@ public class HelpCommand implements Command {
             "`!ttt` -> Get the G-Unit TTT server address.\n" +
             "`!mc` -> Get the G-Unit MC server address.\n" +
             "`!rps` -> Play rock-paper-scissors.\n" +
+            "`!join` -> Make the bot join the voice channel you are in. Permissions still apply!\n" +
             "`!play <youtube_direct_link>` -> Play single youtube video in `Volksradio` channel\n" +
             "`!playlist <youtube_direct_link>` -> Play youtube playlist in `Volksradio` channel";
 
