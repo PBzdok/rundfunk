@@ -23,7 +23,7 @@ public class UnitBot {
         commands.put("ttt", new TTTCommand());
         commands.put("mc", new MCCommand());
         commands.put("cat", new CatCommand());
-        commands.put("rsp", new RSPCommand());
+        commands.put("ssp", new RPSCommand());
     }
 
     public static void main(String[] args) {
