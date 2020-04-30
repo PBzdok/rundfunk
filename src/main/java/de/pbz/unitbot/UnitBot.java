@@ -1,12 +1,12 @@
 package de.pbz.unitbot;
 
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.track.playback.NonAllocatingAudioFrameBuffer;
-import de.pbz.unitbot.audio.LavaPlayerAudioProvider;
-import de.pbz.unitbot.audio.TrackScheduler;
+import de.pbz.unitbot.audio.GuildMusicManager;
+import de.pbz.unitbot.audio.PlaylistHandler;
+import de.pbz.unitbot.audio.SingleTrackHandler;
 import de.pbz.unitbot.commands.*;
 import discord4j.core.DiscordClient;
 import discord4j.core.DiscordClientBuilder;
@@ -14,7 +14,6 @@ import discord4j.core.event.domain.lifecycle.ReadyEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.VoiceState;
 import discord4j.core.object.entity.Member;
-import discord4j.voice.AudioProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
@@ -64,18 +63,24 @@ public class UnitBot {
         final AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
         playerManager.getConfiguration().setFrameBufferFactory(NonAllocatingAudioFrameBuffer::new);
         AudioSourceManagers.registerRemoteSources(playerManager);
-        final AudioPlayer player = playerManager.createPlayer();
-        AudioProvider provider = new LavaPlayerAudioProvider(player);
-        final TrackScheduler scheduler = new TrackScheduler(player);
+        GuildMusicManager musicManager = new GuildMusicManager(playerManager);
 
         commands.put("join", event -> Mono.justOrEmpty(event.getMember())
                 .flatMap(Member::getVoiceState)
                 .flatMap(VoiceState::getChannel)
-                .flatMap(channel -> channel.join(spec -> spec.setProvider(provider)))
+                .flatMap(channel -> channel.join(spec -> spec.setProvider(musicManager.getProvider())))
                 .then());
         commands.put("play", event -> Mono.justOrEmpty(event.getMessage().getContent())
                 .map(content -> Arrays.asList(content.split(" ")))
-                .doOnNext(command -> playerManager.loadItem(command.get(1), scheduler))
+                .filter(l -> l.size() >= 2)
+                .doOnNext(command -> playerManager.loadItem(command.get(1), new SingleTrackHandler(musicManager)))
+                .onErrorStop()
+                .then());
+        commands.put("playlist", event -> Mono.justOrEmpty(event.getMessage().getContent())
+                .map(content -> Arrays.asList(content.split(" ")))
+                .filter(l -> l.size() >= 2)
+                .doOnNext(command -> playerManager.loadItemOrdered(musicManager, command.get(1), new PlaylistHandler(musicManager)))
+                .onErrorStop()
                 .then());
     }
 }
