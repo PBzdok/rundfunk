@@ -24,23 +24,18 @@ public class PlaylistHandler implements AudioLoadResultHandler {
 
     @Override
     public void playlistLoaded(AudioPlaylist playlist) {
-        LOG.info("Load playlist track: " + playlist.getName());
-        AudioTrack firstTrack = playlist.getSelectedTrack();
-
-        if (firstTrack == null) {
-            firstTrack = playlist.getTracks().get(0);
-        }
-
-        musicManager.getScheduler().queue(firstTrack);
+        LOG.info("Load playlist: " + playlist.getName());
+        playlist.getTracks().forEach(track -> musicManager.getScheduler().queue(track));
     }
 
     @Override
     public void noMatches() {
-        // LavaPlayer did not find any audio to extract
+        LOG.warn("Could not find source!");
     }
 
     @Override
     public void loadFailed(FriendlyException exception) {
-        // LavaPlayer could not parse an audio source for some reason
+        LOG.warn("Could not load track!");
+        musicManager.getScheduler().nextTrack();
     }
 }
