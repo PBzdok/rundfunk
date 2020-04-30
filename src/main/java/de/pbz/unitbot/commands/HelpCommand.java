@@ -14,7 +14,8 @@ public class HelpCommand implements Command {
             "`!ttt` -> Get the G-Unit TTT server address.\n" +
             "`!mc` -> Get the G-Unit MC server address.\n" +
             "`!rps` -> Play rock-paper-scissors.\n" +
-            "`!play <youtube_link>` -> Play music in Volksradio channel";
+            "`!play <youtube_direct_link>` -> Play single youtube video in `Volksradio` channel\n" +
+            "`!playlist <youtube_direct_link>` -> Play youtube playlist in `Volksradio` channel";
 
     @Override
     public Mono<Void> execute(MessageCreateEvent event) {
