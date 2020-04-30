@@ -9,4 +9,4 @@ FROM openjdk:11-jre-slim
 
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/unitbot.jar
-ENTRYPOINT ["java", "-jar", "-Xmx512m","/app/unitbot.jar"]
+ENTRYPOINT ["java", "-jar", "/app/unitbot.jar"]
