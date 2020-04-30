@@ -1,37 +1,37 @@
 package de.pbz.unitbot.audio;
 
-import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
-import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
+import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
+import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
 
-public final class TrackScheduler implements AudioLoadResultHandler {
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
+
+public class TrackScheduler extends AudioEventAdapter {
     private final AudioPlayer player;
+    private final BlockingQueue<AudioTrack> queue;
 
-    public TrackScheduler(final AudioPlayer player) {
+    public TrackScheduler(AudioPlayer player) {
         this.player = player;
+        this.queue = new LinkedBlockingQueue<>();
+    }
+
+    public void queue(AudioTrack track) {
+        if (!player.startTrack(track, true)) {
+            queue.offer(track);
+        }
+    }
+
+    public void nextTrack() {
+        player.startTrack(queue.poll(), false);
     }
 
     @Override
-    public void trackLoaded(final AudioTrack track) {
-        // LavaPlayer found an audio source for us to play
-        player.playTrack(track);
-    }
-
-    @Override
-    public void playlistLoaded(final AudioPlaylist playlist) {
-        // LavaPlayer found multiple AudioTracks from some playlist
-    }
-
-    @Override
-    public void noMatches() {
-        // LavaPlayer did not find any audio to extract
-    }
-
-    @Override
-    public void loadFailed(final FriendlyException exception) {
-        // LavaPlayer could not parse an audio source for some reason
+    public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
+        if (endReason.mayStartNext) {
+            nextTrack();
+        }
     }
 }
