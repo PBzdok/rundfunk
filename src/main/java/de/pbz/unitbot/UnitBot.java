@@ -1,15 +1,26 @@
 package de.pbz.unitbot;
 
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
+import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
+import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
+import com.sedmelluq.discord.lavaplayer.track.playback.NonAllocatingAudioFrameBuffer;
+import de.pbz.unitbot.audio.LavaPlayerAudioProvider;
+import de.pbz.unitbot.audio.TrackScheduler;
 import de.pbz.unitbot.commands.*;
 import discord4j.core.DiscordClient;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.event.domain.lifecycle.ReadyEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
+import discord4j.core.object.VoiceState;
+import discord4j.core.object.entity.Member;
+import discord4j.voice.AudioProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,21 +29,14 @@ public class UnitBot {
 
     private static final Map<String, Command> commands = new HashMap<>();
 
-    static {
-        commands.put("help", new HelpCommand());
-        commands.put("ttt", new TTTCommand());
-        commands.put("mc", new MCCommand());
-        commands.put("cat", new CatCommand());
-        commands.put("ssp", new RPSCommand());
-    }
-
     public static void main(String[] args) {
         if (args.length != 1) {
             LOG.error("Wrong parameters");
             return;
         }
-
         LOG.info("Starting Unit Bot...");
+
+        initCommands();
 
         final DiscordClient client = DiscordClientBuilder.create(args[0]).build();
 
@@ -48,5 +52,30 @@ public class UnitBot {
                 .subscribe();
 
         client.login().block();
+    }
+
+    private static void initCommands() {
+        commands.put("help", new HelpCommand());
+        commands.put("ttt", new TTTCommand());
+        commands.put("mc", new MCCommand());
+        commands.put("cat", new CatCommand());
+        commands.put("ssp", new RPSCommand());
+
+        final AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
+        playerManager.getConfiguration().setFrameBufferFactory(NonAllocatingAudioFrameBuffer::new);
+        AudioSourceManagers.registerRemoteSources(playerManager);
+        final AudioPlayer player = playerManager.createPlayer();
+        AudioProvider provider = new LavaPlayerAudioProvider(player);
+        final TrackScheduler scheduler = new TrackScheduler(player);
+
+        commands.put("join", event -> Mono.justOrEmpty(event.getMember())
+                .flatMap(Member::getVoiceState)
+                .flatMap(VoiceState::getChannel)
+                .flatMap(channel -> channel.join(spec -> spec.setProvider(provider)))
+                .then());
+        commands.put("play", event -> Mono.justOrEmpty(event.getMessage().getContent())
+                .map(content -> Arrays.asList(content.split(" ")))
+                .doOnNext(command -> playerManager.loadItem(command.get(1), scheduler))
+                .then());
     }
 }
