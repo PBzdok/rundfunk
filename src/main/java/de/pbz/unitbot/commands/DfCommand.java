@@ -27,7 +27,7 @@ public class DfCommand implements Command {
     @Override
     public Mono<Void> execute(MessageCreateEvent event) {
         LOG.info("Handling !df message.");
-        return Mono.empty()
+        return Mono.justOrEmpty(event.getMessage())
                 .doOnNext(command -> playerManager.loadItem(ytLink, new SingleTrackHandler(musicManager)))
                 .onErrorStop()
                 .then();
