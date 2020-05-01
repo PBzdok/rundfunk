@@ -28,9 +28,13 @@ public class TrackCommand implements Command {
     }
 
     private String getTrackInfo() {
-        String author = musicManager.getPlayer().getPlayingTrack().getInfo().author;
-        String title = musicManager.getPlayer().getPlayingTrack().getInfo().title;
-        String uri = musicManager.getPlayer().getPlayingTrack().getInfo().uri;
-        return "Current track: " + title + " by " + author + "\n" + uri;
+        try {
+            String author = musicManager.getPlayer().getPlayingTrack().getInfo().author;
+            String title = musicManager.getPlayer().getPlayingTrack().getInfo().title;
+            String uri = musicManager.getPlayer().getPlayingTrack().getInfo().uri;
+            return "Current track: " + title + " by " + author + "\n" + uri;
+        } catch (NullPointerException e) {
+            return "Track data could not be fetched.";
+        }
     }
 }
