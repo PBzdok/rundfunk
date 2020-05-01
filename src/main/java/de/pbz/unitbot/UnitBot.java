@@ -63,5 +63,7 @@ public class UnitBot {
         commands.put("join", new JoinCommand(musicManager));
         commands.put("play", new PlayCommand(playerManager, musicManager));
         commands.put("playlist", new PlaylistCommand(playerManager, musicManager));
+        commands.put("track", new TrackCommand(musicManager));
+        commands.put("skip", new SkipCommand(musicManager));
     }
 }

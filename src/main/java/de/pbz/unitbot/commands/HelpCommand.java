@@ -15,8 +15,10 @@ public class HelpCommand implements Command {
             "`!mc` -> Get the G-Unit MC server address.\n" +
             "`!rps` -> Play rock-paper-scissors.\n" +
             "`!join` -> Make the bot join the voice channel you are in. Permissions still apply!\n" +
-            "`!play <youtube_direct_link>` -> Play single youtube audio in the voice channel the bot is in.\n" +
-            "`!playlist <youtube_direct_link>` -> Play youtube playlist in the voice channel the bot is in.";
+            "`!play <direct_link>` -> Play single audio (youtube, soundcloud, bandcamp, vimeo) in the voice channel the bot is in.\n" +
+            "`!playlist <direct_link>` -> Play playlist (youtube, soundcloud, bandcamp, vimeo) in the voice channel the bot is in.\n" +
+            "`!track` -> Show currently playing track information.\n" +
+            "`!skip` -> Skip current track if there are more queued tracks.";
 
     @Override
     public Mono<Void> execute(MessageCreateEvent event) {
