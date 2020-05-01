@@ -53,7 +53,7 @@ public class UnitBot {
         commands.put("ttt", new TTTCommand());
         commands.put("mc", new MCCommand());
         commands.put("cat", new CatCommand());
-        commands.put("ssp", new RPSCommand());
+        commands.put("rps", new RPSCommand());
 
         final AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
         playerManager.getConfiguration().setFrameBufferFactory(NonAllocatingAudioFrameBuffer::new);
