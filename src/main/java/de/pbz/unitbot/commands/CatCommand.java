@@ -3,8 +3,6 @@ package de.pbz.unitbot.commands;
 import de.pbz.unitbot.Command;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
-import org.asynchttpclient.AsyncHttpClient;
-import org.asynchttpclient.Response;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -12,14 +10,18 @@ import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-
-import static org.asynchttpclient.Dsl.asyncHttpClient;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class CatCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(CatCommand.class);
 
     private static final String CAT_API_URL = "https://api.thecatapi.com/v1/images/search";
     private static final String CAT_API_KEY = "157d7d66-6077-4d4c-80f9-b7c16527f910";
+
+    final HttpClient client = HttpClient.newHttpClient();
 
     @Override
     public Mono<Void> execute(MessageCreateEvent event) {
@@ -43,18 +45,17 @@ public class CatCommand implements Command {
     }
 
     private String getCatJson() {
-        try (AsyncHttpClient asyncHttpClient = asyncHttpClient()) {
-            LOG.info("Getting Cat JSON...");
-            return asyncHttpClient
-                    .prepareGet(CAT_API_URL)
-                    .addHeader("x-api-key", CAT_API_KEY)
-                    .execute()
-                    .toCompletableFuture()
-                    .thenApply(Response::getResponseBody)
-                    .join();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(CAT_API_URL))
+                .build();
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return response.body();
         } catch (IOException e) {
-            LOG.error("Failed to load Cat JSON: " + e.getCause());
-            throw new RuntimeException("Could not get Cat JSON", e);
+            return "Error while communicating with the cat api: " + e.getLocalizedMessage();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();  // set interrupt flag
+            return "Error while communicating with the cat api: " + e.getLocalizedMessage();
         }
     }
 }
