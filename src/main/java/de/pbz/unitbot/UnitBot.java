@@ -51,6 +51,7 @@ public class UnitBot {
     private static void initCommands() {
         commands.put("help", new HelpCommand());
         commands.put("ttt", new TTTCommand());
+        commands.put("ph", new PHCommand());
         commands.put("mc", new MCCommand());
         commands.put("cat", new CatCommand());
         commands.put("rps", new RPSCommand());

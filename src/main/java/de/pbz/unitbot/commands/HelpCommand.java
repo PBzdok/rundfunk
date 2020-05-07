@@ -12,6 +12,7 @@ public class HelpCommand implements Command {
 
     private static final String HELP = "`!cat` -> Just cats...\n" +
             "`!ttt` -> Get the G-Unit TTT server address.\n" +
+            "`!ph` -> Get the G-Unit PH server address.\n" +
             "`!mc` -> Get the G-Unit MC server address.\n" +
             "`!rps` -> Play rock-paper-scissors.\n" +
             "`!join` -> Make the bot join the voice channel you are in. Permissions still apply!\n" +
