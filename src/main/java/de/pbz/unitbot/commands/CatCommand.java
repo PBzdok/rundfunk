@@ -47,6 +47,7 @@ public class CatCommand implements Command {
     private String getCatJson() {
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(CAT_API_URL))
+                .header("x-api-key", CAT_API_KEY)
                 .build();
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
