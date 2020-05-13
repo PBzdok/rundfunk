@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono;
 public class PHCommand implements Command {
     private static final Logger LOG = LoggerFactory.getLogger(PHCommand.class);
 
-    private static final String PH_ADDRESS = "`connect h2879589.stratoserver.net:27016; password <enter_password>`";
+    private static final String PH_ADDRESS = "`connect h2879589.stratoserver.net:27115; password <enter_password>`";
 
     @Override
     public Mono<Void> execute(MessageCreateEvent event) {
