@@ -1,6 +1,6 @@
-package de.pbz.unitbot.commands;
+package de.pbz.unitbot.commands.audio;
 
-import de.pbz.unitbot.Command;
+import de.pbz.unitbot.commands.Command;
 import de.pbz.unitbot.audio.MusicManager;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.VoiceState;

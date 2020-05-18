@@ -1,6 +1,6 @@
-package de.pbz.unitbot.commands;
+package de.pbz.unitbot.commands.misc;
 
-import de.pbz.unitbot.Command;
+import de.pbz.unitbot.commands.Command;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import org.json.JSONArray;

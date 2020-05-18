@@ -1,6 +1,5 @@
 package de.pbz.unitbot.commands;
 
-import de.pbz.unitbot.Command;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import org.slf4j.Logger;
@@ -15,6 +14,7 @@ public class HelpCommand implements Command {
             "`!ph` -> Get the G-Unit PH server address.\n" +
             "`!sl` -> Get the G-Unit Slasher server address.\n" +
             "`!mc` -> Get the G-Unit MC server address.\n" +
+            "`!wt` -> Get WatchTogether G-Unit room url.\n" +
             "`!rps` -> Play rock-paper-scissors.\n" +
             "`!join` -> Make the bot join the voice channel you are in. Permissions still apply!\n" +
             "`!play <direct_link>` -> Play single audio (youtube, soundcloud, bandcamp, vimeo) in the voice channel the bot is in.\n" +
