@@ -13,6 +13,7 @@ import de.pbz.unitbot.commands.misc.RPSCommand;
 import de.pbz.unitbot.commands.misc.WTCommand;
 import discord4j.core.DiscordClient;
 import discord4j.core.DiscordClientBuilder;
+import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.lifecycle.ReadyEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import org.slf4j.Logger;
@@ -38,11 +39,12 @@ public class UnitBot {
         initCommands();
 
         final DiscordClient client = DiscordClientBuilder.create(args[0]).build();
+        final GatewayDiscordClient gateway = client.login().block();
 
-        client.getEventDispatcher().on(ReadyEvent.class)
+        gateway.on(ReadyEvent.class)
                 .subscribe(ready -> LOG.info("Logged in as " + ready.getSelf().getUsername()));
 
-        client.getEventDispatcher().on(MessageCreateEvent.class)
+        gateway.on(MessageCreateEvent.class)
                 .flatMap(event -> Mono.justOrEmpty(event.getMessage().getContent())
                         .flatMap(content -> Flux.fromIterable(commands.entrySet())
                                 .filter(entry -> content.startsWith('!' + entry.getKey()))
@@ -50,7 +52,7 @@ public class UnitBot {
                                 .next()))
                 .subscribe();
 
-        client.login().block();
+        gateway.onDisconnect().block();
     }
 
     private static void initCommands() {
