@@ -5,7 +5,7 @@ WORKDIR /home/gradle/src
 RUN gradle build --no-daemon
 
 
-FROM openjdk:14-jre-slim
+FROM openjdk:14.0.2
 
 RUN mkdir /app
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/unitbot.jar
