@@ -17,7 +17,8 @@ public class HelpCommand implements Command {
             "`!playlist <direct_link>` -> Play playlist (youtube, soundcloud, bandcamp, vimeo) in the voice channel the bot is in.\n" +
             "`!track` -> Show currently playing track information.\n" +
             "`!skip` -> Skip current track if there are more queued tracks.\n" +
-            "`!df` -> Play epic DarkForce skit.";
+            "`!df` -> Play epic DarkForce skit\n." +
+            "`!wimbledon` -> I don't know why we have this...";
 
     @Override
     public Mono<Void> execute(MessageCreateEvent event) {

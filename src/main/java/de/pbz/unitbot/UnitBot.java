@@ -72,5 +72,6 @@ public class UnitBot {
         commands.put("track", new TrackCommand(musicManager));
         commands.put("skip", new SkipCommand(musicManager));
         commands.put("df", new DfCommand(playerManager, musicManager));
+        commands.put("wimbledon", new WimbledonCommand(playerManager, musicManager));
     }
 }
