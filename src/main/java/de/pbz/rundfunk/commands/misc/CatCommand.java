@@ -52,10 +52,7 @@ public class CatCommand implements Command {
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             return response.body();
-        } catch (IOException e) {
-            return "Error while communicating with the cat api: " + e.getLocalizedMessage();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();  // set interrupt flag
+        } catch (IOException | InterruptedException e) {
             return "Error while communicating with the cat api: " + e.getLocalizedMessage();
         }
     }
