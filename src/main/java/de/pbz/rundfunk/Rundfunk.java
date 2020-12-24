@@ -13,9 +13,9 @@ import de.pbz.rundfunk.commands.misc.RPSCommand;
 import de.pbz.rundfunk.commands.misc.WTCommand;
 import discord4j.core.DiscordClient;
 import discord4j.core.DiscordClientBuilder;
-import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.lifecycle.ReadyEvent;
 import discord4j.core.event.domain.message.MessageCreateEvent;
+import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Flux;
@@ -34,25 +34,28 @@ public class Rundfunk {
             LOG.error("Wrong parameters");
             return;
         }
-        LOG.info("Starting Unit Bot...");
+        LOG.info("Starting Rundfunk Bot...");
 
         initCommands();
 
         final DiscordClient client = DiscordClientBuilder.create(args[0]).build();
-        final GatewayDiscordClient gateway = client.login().block();
 
-        gateway.on(ReadyEvent.class)
-                .subscribe(ready -> LOG.info("Logged in as " + ready.getSelf().getUsername()));
+        client.withGateway(gateway -> {
+            final Publisher<?> bot = gateway.on(MessageCreateEvent.class)
+                    .flatMap(event -> Mono.justOrEmpty(event.getMessage().getContent())
+                            .flatMap(content -> Flux.fromIterable(commands.entrySet())
+                                    .filter(entry -> content.startsWith('!' + entry.getKey()))
+                                    .flatMap(entry -> entry.getValue().execute(event))
+                                    .next()));
 
-        gateway.on(MessageCreateEvent.class)
-                .flatMap(event -> Mono.justOrEmpty(event.getMessage().getContent())
-                        .flatMap(content -> Flux.fromIterable(commands.entrySet())
-                                .filter(entry -> content.startsWith('!' + entry.getKey()))
-                                .flatMap(entry -> entry.getValue().execute(event))
-                                .next()))
-                .subscribe();
+            final Publisher<?> onConnect = gateway.on(ReadyEvent.class)
+                    .doOnNext(readyEvent -> LOG.info("Logged in as " + readyEvent.getSelf().getUsername()));
 
-        gateway.onDisconnect().block();
+            final Publisher<?> onDisconnect = gateway.onDisconnect()
+                    .doOnTerminate(() -> LOG.info("Disconnected!"));
+
+            return Mono.when(bot, onConnect, onDisconnect);
+        }).block();
     }
 
     private static void initCommands() {
