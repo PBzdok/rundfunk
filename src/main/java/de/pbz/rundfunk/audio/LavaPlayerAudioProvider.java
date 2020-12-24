@@ -1,4 +1,4 @@
-package de.pbz.unitbot.audio;
+package de.pbz.rundfunk.audio;
 
 import com.sedmelluq.discord.lavaplayer.format.StandardAudioDataFormats;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;

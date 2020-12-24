@@ -1,7 +1,7 @@
-package de.pbz.unitbot.commands.audio;
+package de.pbz.rundfunk.commands.audio;
 
-import de.pbz.unitbot.commands.Command;
-import de.pbz.unitbot.audio.MusicManager;
+import de.pbz.rundfunk.commands.Command;
+import de.pbz.rundfunk.audio.MusicManager;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.VoiceState;
 import discord4j.core.object.entity.Member;

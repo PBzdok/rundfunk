@@ -1,16 +1,16 @@
-package de.pbz.unitbot;
+package de.pbz.rundfunk;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.track.playback.NonAllocatingAudioFrameBuffer;
-import de.pbz.unitbot.audio.MusicManager;
-import de.pbz.unitbot.commands.Command;
-import de.pbz.unitbot.commands.HelpCommand;
-import de.pbz.unitbot.commands.audio.*;
-import de.pbz.unitbot.commands.misc.CatCommand;
-import de.pbz.unitbot.commands.misc.RPSCommand;
-import de.pbz.unitbot.commands.misc.WTCommand;
+import de.pbz.rundfunk.audio.MusicManager;
+import de.pbz.rundfunk.commands.Command;
+import de.pbz.rundfunk.commands.HelpCommand;
+import de.pbz.rundfunk.commands.audio.*;
+import de.pbz.rundfunk.commands.misc.CatCommand;
+import de.pbz.rundfunk.commands.misc.RPSCommand;
+import de.pbz.rundfunk.commands.misc.WTCommand;
 import discord4j.core.DiscordClient;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.GatewayDiscordClient;
@@ -24,8 +24,8 @@ import reactor.core.publisher.Mono;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UnitBot {
-    private static final Logger LOG = LoggerFactory.getLogger(UnitBot.class);
+public class Rundfunk {
+    private static final Logger LOG = LoggerFactory.getLogger(Rundfunk.class);
 
     private static final Map<String, Command> commands = new HashMap<>();
 

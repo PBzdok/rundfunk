@@ -1,4 +1,4 @@
-package de.pbz.unitbot.commands;
+package de.pbz.rundfunk.commands;
 
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;

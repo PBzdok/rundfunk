@@ -28,7 +28,7 @@ dependencies {
 }
 
 ext {
-    javaMainClass = "de.pbz.unitbot.UnitBot"
+    javaMainClass = "de.pbz.rundfunk.Rundfunk"
 }
 
 application {

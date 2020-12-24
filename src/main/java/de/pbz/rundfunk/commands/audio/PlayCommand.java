@@ -1,9 +1,9 @@
-package de.pbz.unitbot.commands.audio;
+package de.pbz.rundfunk.commands.audio;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
-import de.pbz.unitbot.commands.Command;
-import de.pbz.unitbot.audio.MusicManager;
-import de.pbz.unitbot.audio.SingleTrackHandler;
+import de.pbz.rundfunk.commands.Command;
+import de.pbz.rundfunk.audio.MusicManager;
+import de.pbz.rundfunk.audio.SingleTrackHandler;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package de.pbz.unitbot.audio;
+package de.pbz.rundfunk.audio;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
@@ -7,26 +7,24 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PlaylistHandler implements AudioLoadResultHandler {
-    private static final Logger LOG = LoggerFactory.getLogger(PlaylistHandler.class);
+public class SingleTrackHandler implements AudioLoadResultHandler {
+    private static final Logger LOG = LoggerFactory.getLogger(SingleTrackHandler.class);
 
     private final MusicManager musicManager;
 
-    public PlaylistHandler(MusicManager musicManager) {
+    public SingleTrackHandler(MusicManager musicManager) {
         this.musicManager = musicManager;
     }
 
     @Override
     public void trackLoaded(AudioTrack track) {
-        LOG.info("Queue track: " + track.getIdentifier());
-        musicManager.getScheduler().queue(track);
+        LOG.info("Start track: " + track.getIdentifier());
+        musicManager.getPlayer().playTrack(track);
     }
 
     @Override
     public void playlistLoaded(AudioPlaylist playlist) {
-        LOG.info("Queue playlist: " + playlist.getName());
-        musicManager.getScheduler().clearQueue();
-        playlist.getTracks().forEach(track -> musicManager.getScheduler().queue(track));
+        // LavaPlayer found multiple AudioTracks from some playlist
     }
 
     @Override

@@ -1,6 +1,6 @@
-package de.pbz.unitbot.commands.misc;
+package de.pbz.rundfunk.commands.misc;
 
-import de.pbz.unitbot.commands.Command;
+import de.pbz.rundfunk.commands.Command;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import org.slf4j.Logger;
