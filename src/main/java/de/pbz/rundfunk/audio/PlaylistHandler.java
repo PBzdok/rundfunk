@@ -7,6 +7,9 @@ import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collection;
+import java.util.Collections;
+
 public class PlaylistHandler implements AudioLoadResultHandler {
     private static final Logger LOG = LoggerFactory.getLogger(PlaylistHandler.class);
 
@@ -26,6 +29,7 @@ public class PlaylistHandler implements AudioLoadResultHandler {
     public void playlistLoaded(AudioPlaylist playlist) {
         LOG.info("Queue playlist: " + playlist.getName());
         musicManager.getScheduler().clearQueue();
+        Collections.shuffle(playlist.getTracks());
         playlist.getTracks().forEach(track -> musicManager.getScheduler().queue(track));
     }
 

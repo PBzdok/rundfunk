@@ -28,7 +28,7 @@ public class PlaylistCommand implements Command {
         return Mono.justOrEmpty(event.getMessage().getContent())
                 .map(content -> Arrays.asList(content.split(" ")))
                 .filter(l -> l.size() >= 2)
-                .doOnNext(command -> playerManager.loadItemOrdered(musicManager, command.get(1), new PlaylistHandler(musicManager)))
+                .doOnNext(command -> playerManager.loadItem(command.get(1), new PlaylistHandler(musicManager)))
                 .onErrorStop()
                 .then();
     }
