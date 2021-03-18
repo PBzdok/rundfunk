@@ -21,6 +21,6 @@ public class RPSCommand implements Command {
                 .map(MessageCreateEvent::getMessage)
                 .flatMap(Message::getChannel)
                 .flatMap(channel -> channel.createMessage(CHOICES[ThreadLocalRandom.current().nextInt(0, 2 + 1)]))
-                .then();
+                .dematerialize();
     }
 }

@@ -24,14 +24,14 @@ public class TrackCommand implements Command {
                 .map(MessageCreateEvent::getMessage)
                 .flatMap(Message::getChannel)
                 .flatMap(channel -> channel.createMessage(getTrackInfo()))
-                .then();
+                .dematerialize();
     }
 
     private String getTrackInfo() {
         try {
-            String author = musicManager.getPlayer().getPlayingTrack().getInfo().author;
-            String title = musicManager.getPlayer().getPlayingTrack().getInfo().title;
-            String uri = musicManager.getPlayer().getPlayingTrack().getInfo().uri;
+            var author = musicManager.getPlayer().getPlayingTrack().getInfo().author;
+            var title = musicManager.getPlayer().getPlayingTrack().getInfo().title;
+            var uri = musicManager.getPlayer().getPlayingTrack().getInfo().uri;
             return "Current track: " + title + " by " + author + "\n" + uri;
         } catch (NullPointerException e) {
             return "Track data could not be fetched.";

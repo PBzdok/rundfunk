@@ -31,13 +31,13 @@ public class SkipCommand implements Command {
                         return channel.createMessage("No tracks in queue.");
                     }
                 })
-                .then();
+                .dematerialize();
     }
 
     private String getTrackInfo() {
-        String author = musicManager.getPlayer().getPlayingTrack().getInfo().author;
-        String title = musicManager.getPlayer().getPlayingTrack().getInfo().title;
-        String uri = musicManager.getPlayer().getPlayingTrack().getInfo().uri;
+        var author = musicManager.getPlayer().getPlayingTrack().getInfo().author;
+        var title = musicManager.getPlayer().getPlayingTrack().getInfo().title;
+        var uri = musicManager.getPlayer().getPlayingTrack().getInfo().uri;
         return "Skipped track to: " + title + " by " + author + "\n" + uri;
     }
 }
