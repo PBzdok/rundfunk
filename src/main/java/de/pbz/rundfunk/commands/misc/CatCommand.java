@@ -17,7 +17,6 @@ public class CatCommand implements Command {
     private static final String CAT_API_URL = "https://api.thecatapi.com/v1/images/search";
     private static final String CAT_API_KEY = "157d7d66-6077-4d4c-80f9-b7c16527f910";
 
-    private final HttpClient client = HttpClient.create();
 
     @Override
     public Mono<Void> execute(MessageCreateEvent event) {
@@ -30,7 +29,8 @@ public class CatCommand implements Command {
     }
 
     private Mono<String> getCatImageUrl() {
-        return client.get()
+        return HttpClient.create()
+                .get()
                 .uri(CAT_API_URL)
                 .responseContent()
                 .aggregate()
