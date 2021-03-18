@@ -26,7 +26,7 @@ public class CatCommand implements Command {
                 .map(MessageCreateEvent::getMessage)
                 .flatMap(Message::getChannel)
                 .flatMap(channel -> getCatImageUrl().map(channel::createMessage))
-                .dematerialize();
+                .then();
     }
 
     private Mono<String> getCatImageUrl() {

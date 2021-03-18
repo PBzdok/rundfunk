@@ -24,7 +24,7 @@ public class TrackCommand implements Command {
                 .map(MessageCreateEvent::getMessage)
                 .flatMap(Message::getChannel)
                 .flatMap(channel -> channel.createMessage(getTrackInfo()))
-                .dematerialize();
+                .then();
     }
 
     private String getTrackInfo() {

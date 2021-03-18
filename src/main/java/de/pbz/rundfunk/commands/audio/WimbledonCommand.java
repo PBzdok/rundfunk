@@ -28,6 +28,6 @@ public class WimbledonCommand implements Command {
         return Mono.justOrEmpty(event.getMessage())
                 .doOnNext(command -> playerManager.loadItem(ytLink, new SingleTrackHandler(musicManager)))
                 .onErrorStop()
-                .dematerialize();
+                .then();
     }
 }

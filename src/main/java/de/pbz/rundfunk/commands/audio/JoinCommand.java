@@ -25,6 +25,6 @@ public class JoinCommand implements Command {
                 .flatMap(Member::getVoiceState)
                 .flatMap(VoiceState::getChannel)
                 .flatMap(channel -> channel.join(spec -> spec.setProvider(musicManager.getProvider())))
-                .dematerialize();
+                .then();
     }
 }

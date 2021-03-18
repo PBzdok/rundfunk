@@ -31,7 +31,7 @@ public class SkipCommand implements Command {
                         return channel.createMessage("No tracks in queue.");
                     }
                 })
-                .dematerialize();
+                .then();
     }
 
     private String getTrackInfo() {

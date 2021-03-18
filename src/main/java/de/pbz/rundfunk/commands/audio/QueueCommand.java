@@ -30,6 +30,6 @@ public class QueueCommand implements Command {
                 .filter(l -> l.size() >= 2)
                 .doOnNext(command -> playerManager.loadItem(command.get(1), new PlaylistHandler(musicManager)))
                 .onErrorStop()
-                .dematerialize();
+                .then();
     }
 }
