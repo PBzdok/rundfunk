@@ -10,7 +10,6 @@ import de.pbz.rundfunk.commands.HelpCommand;
 import de.pbz.rundfunk.commands.audio.*;
 import de.pbz.rundfunk.commands.misc.CatCommand;
 import de.pbz.rundfunk.commands.misc.RPSCommand;
-import de.pbz.rundfunk.commands.misc.WTCommand;
 import discord4j.core.DiscordClient;
 import discord4j.core.DiscordClientBuilder;
 import discord4j.core.event.domain.lifecycle.ReadyEvent;
@@ -62,7 +61,6 @@ public class Rundfunk {
         commands.put("help", new HelpCommand());
         commands.put("cat", new CatCommand());
         commands.put("rps", new RPSCommand());
-        commands.put("wt", new WTCommand());
 
         final AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
         playerManager.getConfiguration().setFrameBufferFactory(NonAllocatingAudioFrameBuffer::new);
@@ -72,6 +70,7 @@ public class Rundfunk {
         commands.put("join", new JoinCommand(musicManager));
         commands.put("play", new PlayCommand(playerManager, musicManager));
         commands.put("playlist", new PlaylistCommand(playerManager, musicManager));
+        commands.put("queue", new QueueCommand(playerManager, musicManager));
         commands.put("track", new TrackCommand(musicManager));
         commands.put("skip", new SkipCommand(musicManager));
         commands.put("df", new DfCommand(playerManager, musicManager));
