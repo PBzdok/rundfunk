@@ -17,6 +17,7 @@ public class CatCommand implements Command {
     private static final String CAT_API_URL = "https://api.thecatapi.com/v1/images/search";
     private static final String CAT_API_KEY = "157d7d66-6077-4d4c-80f9-b7c16527f910";
 
+    private final HttpClient client = HttpClient.create();
 
     @Override
     public Mono<Void> execute(MessageCreateEvent event) {
@@ -24,19 +25,21 @@ public class CatCommand implements Command {
         return Mono.just(event)
                 .map(MessageCreateEvent::getMessage)
                 .flatMap(Message::getChannel)
-                .flatMap(channel -> getCatImageUrl().map(channel::createMessage))
+                .flatMap(channel -> channel.createMessage(getCatImageUrl()))
                 .then();
     }
 
-    private Mono<String> getCatImageUrl() {
-        return HttpClient.create()
+    private String getCatImageUrl() {
+        return client
+                .headers(entries -> entries.set("x-api-key", CAT_API_KEY))
                 .get()
                 .uri(CAT_API_URL)
                 .responseContent()
                 .aggregate()
                 .asString()
                 .map(CatCommand::parseCatList)
-                .onErrorStop();
+                .onErrorStop()
+                .block();
     }
 
     private static String parseCatList(String raw) {
