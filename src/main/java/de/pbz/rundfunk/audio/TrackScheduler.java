@@ -4,6 +4,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.event.AudioEventAdapter;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason;
+import lombok.Getter;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -41,5 +42,10 @@ public class TrackScheduler extends AudioEventAdapter {
 
     public boolean isQueueEmpty() {
         return queue.isEmpty();
+    }
+
+    public String getQueueContents() {
+        return queue.stream()
+                .reduce("", (acc, curr) -> acc + curr.getInfo().author + " - " + curr.getInfo().title + "\n", String::concat);
     }
 }
