@@ -19,18 +19,18 @@ public class HelpCommand implements Command {
                 .flatMap(channel ->
                         channel.createEmbed(spec ->
                                 spec.setColor(Color.DEEP_SEA)
-                                        .setTitle("Ein Songwunsch gefällig?")
+                                        .setTitle("Ein Songwunsch gefaellig?")
                                         .addField("`!cat`", "Just cats...", false)
-                                        .addField("`!wt`", "Create WatchTogether Room...", false)
                                         .addField("`!rps`", "Play Rock-Paper-Scissors.", false)
                                         .addField("`!join`", "Let the bot join your voice channel.", false)
                                         .addField("`!play <direct_link>`", "Play single audio (youtube, soundcloud, bandcamp, vimeo).", false)
                                         .addField("`!playlist <direct_link>`", "Play playlist (youtube, soundcloud, bandcamp, vimeo).", false)
+                                        .addField("`!queue <direct_link>`", "Queue track or playlist (youtube, soundcloud, bandcamp, vimeo).", false)
                                         .addField("`!track`", "Show currently playing track information.", false)
                                         .addField("`!skip`", "Skip current track if more are queued", false)
                                         .addField("`!df`", "Play DarkForce skit", false)
                                         .addField("`!wimbledon`", "Don't ask....", false)
                         ))
-                .then();
+                .dematerialize();
     }
 }
