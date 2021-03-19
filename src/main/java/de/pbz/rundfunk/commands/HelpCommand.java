@@ -31,6 +31,6 @@ public class HelpCommand implements Command {
                                         .addField("`!df`", "Play DarkForce skit", false)
                                         .addField("`!wimbledon`", "Don't ask....", false)
                         ))
-                .dematerialize();
+                .then();
     }
 }
