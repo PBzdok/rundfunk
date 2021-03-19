@@ -1,7 +1,7 @@
 package de.pbz.rundfunk.commands.audio;
 
-import de.pbz.rundfunk.commands.Command;
 import de.pbz.rundfunk.audio.MusicManager;
+import de.pbz.rundfunk.commands.Command;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import org.slf4j.Logger;
@@ -32,7 +32,8 @@ public class TrackCommand implements Command {
             var author = musicManager.getPlayer().getPlayingTrack().getInfo().author;
             var title = musicManager.getPlayer().getPlayingTrack().getInfo().title;
             var uri = musicManager.getPlayer().getPlayingTrack().getInfo().uri;
-            return "Current track: " + title + " by " + author + "\n" + uri;
+            return "Current track:" + "\n" + title + " by " + author + "\n" + uri + "\n\n"
+                    + "Upcoming tracks:" + "\n" + musicManager.getScheduler().getQueueContents();
         } catch (NullPointerException e) {
             return "Track data could not be fetched.";
         }
