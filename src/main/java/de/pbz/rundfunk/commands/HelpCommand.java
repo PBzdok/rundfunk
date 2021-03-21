@@ -28,6 +28,7 @@ public class HelpCommand implements Command {
                                         .addField("`!queue <direct_link>`", "Queue track or playlist (youtube, soundcloud, bandcamp, vimeo).", false)
                                         .addField("`!track`", "Show currently playing track information.", false)
                                         .addField("`!skip`", "Skip current track if more are queued", false)
+                                        .addField("`!clear`", "Clear Audio Track Queue", false)
                                         .addField("`!df`", "Play DarkForce skit", false)
                                         .addField("`!wimbledon`", "Don't ask....", false)
                         ))

@@ -69,6 +69,7 @@ public class Rundfunk {
 
         commands.put("join", new JoinCommand(musicManager));
         commands.put("play", new PlayCommand(playerManager, musicManager));
+        commands.put("clear", new ClearCommand(musicManager));
         commands.put("playlist", new PlaylistCommand(playerManager, musicManager));
         commands.put("queue", new QueueCommand(playerManager, musicManager));
         commands.put("track", new TrackCommand(musicManager));
