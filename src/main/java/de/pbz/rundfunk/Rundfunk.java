@@ -1,6 +1,5 @@
 package de.pbz.rundfunk;
 
-import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.player.DefaultAudioPlayerManager;
 import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.track.playback.NonAllocatingAudioFrameBuffer;
@@ -26,7 +25,7 @@ import java.util.Map;
 public class Rundfunk {
     private static final Logger LOG = LoggerFactory.getLogger(Rundfunk.class);
 
-    private static final Map<String, Command> commands = new HashMap<>();
+    private static final Map<String, Command> commands = generateDefaults();
 
     public static void main(String[] args) {
         if (args.length != 1) {
@@ -34,8 +33,6 @@ public class Rundfunk {
             return;
         }
         LOG.info("Starting Rundfunk Bot...");
-
-        initCommands();
 
         final DiscordClient client = DiscordClientBuilder.create(args[0]).build();
 
@@ -57,15 +54,19 @@ public class Rundfunk {
         }).block();
     }
 
-    private static void initCommands() {
+    private static HashMap<String, Command> generateDefaults() {
+        var commands = new HashMap<String, Command>();
+
         commands.put("help", new HelpCommand());
         commands.put("cat", new CatCommand());
         commands.put("rps", new RPSCommand());
 
-        final AudioPlayerManager playerManager = new DefaultAudioPlayerManager();
-        playerManager.getConfiguration().setFrameBufferFactory(NonAllocatingAudioFrameBuffer::new);
+        var playerManager = new DefaultAudioPlayerManager();
+        playerManager
+                .getConfiguration()
+                .setFrameBufferFactory(NonAllocatingAudioFrameBuffer::new);
         AudioSourceManagers.registerRemoteSources(playerManager);
-        MusicManager musicManager = new MusicManager(playerManager);
+        var musicManager = new MusicManager(playerManager);
 
         commands.put("join", new JoinCommand(musicManager));
         commands.put("play", new PlayCommand(playerManager, musicManager));
@@ -77,5 +78,7 @@ public class Rundfunk {
         commands.put("skip", new SkipCommand(musicManager));
         commands.put("df", new DfCommand(playerManager, musicManager));
         commands.put("wimbledon", new WimbledonCommand(playerManager, musicManager));
+
+        return commands;
     }
 }

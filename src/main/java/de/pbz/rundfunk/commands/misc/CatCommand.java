@@ -37,12 +37,12 @@ public class CatCommand implements Command {
                 .responseContent()
                 .aggregate()
                 .asString()
-                .map(CatCommand::parseCatList)
+                .map(CatCommand::parseUrl)
                 .onErrorStop()
                 .block();
     }
 
-    private static String parseCatList(String raw) {
+    private static String parseUrl(String raw) {
         JSONArray jsonArray = new JSONArray(raw);
         JSONObject entry = jsonArray.getJSONObject(0);
         return entry.getString("url").replaceAll("\"", "");
