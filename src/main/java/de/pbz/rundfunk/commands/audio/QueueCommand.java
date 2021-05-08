@@ -5,7 +5,6 @@ import de.pbz.rundfunk.audio.MusicManager;
 import de.pbz.rundfunk.audio.PlaylistHandler;
 import de.pbz.rundfunk.commands.Command;
 import discord4j.core.event.domain.message.MessageCreateEvent;
-import discord4j.core.object.entity.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import reactor.core.publisher.Mono;
@@ -29,13 +28,14 @@ public class QueueCommand implements Command {
         return Mono.justOrEmpty(event.getMessage().getContent())
                 .map(content -> Arrays.asList(content.split(" ")))
                 .filter(l -> l.size() >= 2)
-                .doOnNext(command -> playerManager.loadItem(command.get(1), new PlaylistHandler(musicManager)))
+                .doOnNext(command -> {
+                    var url = command.get(1);
+                    playerManager.loadItem(url, new PlaylistHandler(musicManager));
+                    event.getMessage().getChannel()
+                            .map(channel -> channel.createMessage(
+                                    "Added track to queue: " + url));
+                })
                 .onErrorStop()
-                .then(Mono.just(event)
-                        .map(MessageCreateEvent::getMessage)
-                        .flatMap(Message::getChannel)
-                        .flatMap(channel -> channel.createMessage(
-                                "Added track to queue:" + "\n" + musicManager.getScheduler().getQueueContents()))
-                        .then());
+                .then();
     }
 }
