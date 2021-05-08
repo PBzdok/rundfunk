@@ -32,8 +32,7 @@ public class QueueCommand implements Command {
                     var url = command.get(1);
                     playerManager.loadItem(url, new PlaylistHandler(musicManager));
                     return event.getMessage().getChannel()
-                            .flatMap(channel -> channel.createMessage(
-                                    "Added track to queue: " + url));
+                            .flatMap(channel -> channel.createMessage("Added track to queue"));
                 })
                 .onErrorStop()
                 .then();
