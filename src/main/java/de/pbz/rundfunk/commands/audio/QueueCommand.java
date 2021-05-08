@@ -28,11 +28,11 @@ public class QueueCommand implements Command {
         return Mono.justOrEmpty(event.getMessage().getContent())
                 .map(content -> Arrays.asList(content.split(" ")))
                 .filter(l -> l.size() >= 2)
-                .doOnNext(command -> {
+                .flatMap(command -> {
                     var url = command.get(1);
                     playerManager.loadItem(url, new PlaylistHandler(musicManager));
-                    event.getMessage().getChannel()
-                            .map(channel -> channel.createMessage(
+                    return event.getMessage().getChannel()
+                            .flatMap(channel -> channel.createMessage(
                                     "Added track to queue: " + url));
                 })
                 .onErrorStop()
