@@ -25,11 +25,11 @@ public class CatCommand implements Command {
         return Mono.just(event)
                 .map(MessageCreateEvent::getMessage)
                 .flatMap(Message::getChannel)
-                .flatMap(channel -> channel.createMessage(getCatImageUrl()))
+                .flatMap(channel -> getCatImageUrl().flatMap(channel::createMessage))
                 .then();
     }
 
-    private String getCatImageUrl() {
+    private Mono<String> getCatImageUrl() {
         return client
                 .headers(entries -> entries.set("x-api-key", CAT_API_KEY))
                 .get()
@@ -38,8 +38,7 @@ public class CatCommand implements Command {
                 .aggregate()
                 .asString()
                 .map(CatCommand::parseUrl)
-                .onErrorStop()
-                .block();
+                .onErrorStop();
     }
 
     private static String parseUrl(String raw) {
