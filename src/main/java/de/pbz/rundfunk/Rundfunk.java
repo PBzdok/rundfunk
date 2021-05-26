@@ -5,7 +5,7 @@ import com.sedmelluq.discord.lavaplayer.source.AudioSourceManagers;
 import com.sedmelluq.discord.lavaplayer.track.playback.NonAllocatingAudioFrameBuffer;
 import de.pbz.rundfunk.audio.MusicManager;
 import de.pbz.rundfunk.commands.Command;
-import de.pbz.rundfunk.commands.HelpCommand;
+import de.pbz.rundfunk.commands.misc.HelpCommand;
 import de.pbz.rundfunk.commands.audio.*;
 import de.pbz.rundfunk.commands.misc.CatCommand;
 import de.pbz.rundfunk.commands.misc.RPSCommand;
@@ -39,8 +39,10 @@ public class Rundfunk {
         client.withGateway(gateway -> {
             final Publisher<?> bot = gateway.on(MessageCreateEvent.class)
                     .flatMap(event -> Mono.justOrEmpty(event.getMessage().getContent())
+                            .map(content -> content.split(" "))
+                            .filter(contents -> contents.length > 0)
                             .flatMap(content -> Flux.fromIterable(commands.entrySet())
-                                    .filter(entry -> content.startsWith('!' + entry.getKey()))
+                                    .filter(entry -> content[0].equals('!' + entry.getKey()))
                                     .flatMap(entry -> entry.getValue().execute(event))
                                     .next()));
 

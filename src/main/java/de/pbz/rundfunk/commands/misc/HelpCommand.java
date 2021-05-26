@@ -1,5 +1,6 @@
-package de.pbz.rundfunk.commands;
+package de.pbz.rundfunk.commands.misc;
 
+import de.pbz.rundfunk.commands.Command;
 import discord4j.core.event.domain.message.MessageCreateEvent;
 import discord4j.core.object.entity.Message;
 import discord4j.rest.util.Color;
@@ -25,6 +26,7 @@ public class HelpCommand implements Command {
                                         .addField("`!join`", "Let the bot join your voice channel.", false)
                                         .addField("`!play <direct_link>`", "Play single audio (youtube, soundcloud, bandcamp, vimeo).", false)
                                         .addField("`!playlist <direct_link>`", "Play playlist (youtube, soundcloud, bandcamp, vimeo).", false)
+                                        .addField("`!q <direct_link>`", "Queue track or playlist (youtube, soundcloud, bandcamp, vimeo).", false)
                                         .addField("`!queue <direct_link>`", "Queue track or playlist (youtube, soundcloud, bandcamp, vimeo).", false)
                                         .addField("`!track`", "Show currently playing track information.", false)
                                         .addField("`!skip`", "Skip current track if more are queued", false)
