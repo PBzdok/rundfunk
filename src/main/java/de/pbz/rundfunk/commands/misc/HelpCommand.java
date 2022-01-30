@@ -33,7 +33,7 @@ public class HelpCommand implements Command {
                                         .addField("`!clear`", "Clear Audio Track Queue", false)
                                         .addField("`!df`", "Play DarkForce skit", false)
                                         .addField("`!wimbledon`", "Don't ask....", false)
-                                        .setFooter("Find me @ https://gitlab.com/pbzdok/rundfunk", "")
+                                        .setFooter("Find me @ https://github.com/pbzdok/rundfunk", "")
                         ))
                 .then();
     }
