@@ -33,14 +33,15 @@ dependencies {
     testAnnotationProcessor("org.projectlombok:lombok:1.18.24")
 }
 
-tasks.withType<Jar>() {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+application {
+    mainClass.set("de.pbz.rundfunk.Rundfunk")
+}
 
-    manifest {
-        attributes["Main-Class"] = "de.pbz.rundfunk.Rundfunk"
-    }
-    configurations["compileClasspath"]
-        .forEach { file: File ->
-            from(zipTree(file.absoluteFile))
-        }
+tasks.jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from({
+        configurations.runtimeClasspath.get()
+                .filter { it.name.endsWith("jar") }
+                .map { zipTree(it) }
+    })
 }
