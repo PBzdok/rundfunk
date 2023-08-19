@@ -38,6 +38,10 @@ application {
 }
 
 tasks.jar {
+    manifest {
+        attributes["Main-Class"] = "de.pbz.rundfunk.Rundfunk"
+    }
+
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     from({
         configurations.runtimeClasspath.get()
