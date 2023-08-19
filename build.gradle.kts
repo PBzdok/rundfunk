@@ -20,7 +20,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.discord4j:discord4j-core:3.2.4")
+    implementation("com.discord4j:discord4j-core:3.2.5")
     implementation("com.sedmelluq:lavaplayer:1.3.77")
     implementation("org.projectlombok:lombok:1.18.24")
     implementation("org.json:json:20220924")
