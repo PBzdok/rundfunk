@@ -15,15 +15,15 @@ java {
 repositories {
     mavenCentral()
     maven {
-        url = uri("https://m2.dv8tion.net/releases")
+        url = uri("https://jitpack.io")
     }
 }
 
 dependencies {
     implementation("com.discord4j:discord4j-core:3.2.5")
-    implementation("com.sedmelluq:lavaplayer:1.3.77")
+    implementation("com.github.walkyst:lavaplayer-fork:1.4.3")
     implementation("org.projectlombok:lombok:1.18.24")
-    implementation("org.json:json:20220924")
+    implementation("org.json:json:20230227")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
 
     runtimeOnly("org.slf4j:slf4j-simple:2.0.3")
