@@ -1,5 +1,5 @@
 # Rundfunk
-Personal Discord bot featuring [Discord4J](https://github.com/Discord4J/Discord4J) and [Lavaplayer](https://github.com/sedmelluq/lavaplayer)
+Personal Discord bot featuring [Discord4J](https://github.com/Discord4J/Discord4J) and [Lavaplayer(Fork)](https://github.com/Walkyst/lavaplayer-fork/releases)
 
 ## Local setup
 `$ ./gradlew build`
