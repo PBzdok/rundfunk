@@ -80,6 +80,7 @@ public class Rundfunk {
         commands.put("skip", new SkipCommand(musicManager));
         commands.put("df", new DfCommand(playerManager, musicManager));
         commands.put("wimbledon", new WimbledonCommand(playerManager, musicManager));
+        commands.put("geld", new GeldCommand(playerManager, musicManager));
 
         return commands;
     }
