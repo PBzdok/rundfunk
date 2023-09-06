@@ -32,7 +32,8 @@ public class HelpCommand implements Command {
                                         .addField("`!skip`", "Skip current track if more are queued", false)
                                         .addField("`!clear`", "Clear Audio Track Queue", false)
                                         .addField("`!df`", "Play DarkForce skit", false)
-                                        .addField("`!wimbledon`", "Don't ask....", false)
+                                        .addField("`!wimbledon`", "Play wimbledon skit", false)
+                                        .addField("`!geld`", "Play geld skit", false)
                                         .setFooter("Find me @ https://github.com/pbzdok/rundfunk", "")
                         ))
                 .then();
