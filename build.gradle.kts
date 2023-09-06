@@ -22,15 +22,11 @@ repositories {
 dependencies {
     implementation("com.discord4j:discord4j-core:3.2.5")
     implementation("com.github.walkyst:lavaplayer-fork:1.4.3")
-    implementation("org.projectlombok:lombok:1.18.24")
     implementation("org.json:json:20230227")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
 
     runtimeOnly("org.slf4j:slf4j-simple:2.0.3")
     runtimeOnly("org.slf4j:slf4j-api:2.0.3")
-
-    annotationProcessor("org.projectlombok:lombok:1.18.24")
-    testAnnotationProcessor("org.projectlombok:lombok:1.18.24")
 }
 
 application {
