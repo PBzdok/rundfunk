@@ -21,13 +21,13 @@ repositories {
 
 dependencies {
     implementation("com.discord4j:discord4j-core:3.2.6")
-    implementation("com.github.walkyst:lavaplayer-fork:1.4.3")
+    implementation ("dev.arbjerg:lavaplayer:2.1.1")
     implementation("org.json:json:20231013")
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
+    implementation("org.slf4j:slf4j-api:2.0.12")
+    implementation("org.slf4j:slf4j-simple:2.0.12")
 
-    runtimeOnly("org.slf4j:slf4j-simple:2.0.3")
-    runtimeOnly("org.slf4j:slf4j-api:2.0.3")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")
 }
 
 application {
