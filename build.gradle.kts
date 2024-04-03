@@ -21,7 +21,7 @@ repositories {
 
 dependencies {
     implementation("com.discord4j:discord4j-core:3.2.6")
-    implementation ("dev.arbjerg:lavaplayer:2.1.1")
+    implementation ("dev.arbjerg:lavaplayer:afec211f05c9dcf0b6ee44276a02f0316ea2458a-SNAPSHOT")
     implementation("org.json:json:20231013")
 
     implementation("org.slf4j:slf4j-api:2.0.12")
