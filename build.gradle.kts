@@ -16,6 +16,9 @@ repositories {
     mavenCentral()
     maven {
         url = uri("https://jitpack.io")
+    }
+    maven {
+        name = "arbjergDevSnapshots"
         url = uri("https://maven.lavalink.dev/snapshots")
     }
 }
